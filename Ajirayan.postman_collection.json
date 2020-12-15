@@ -1,0 +1,102 @@
+{
+	"info": {
+		"_postman_id": "58e43368-f0ca-43d5-936b-19838c660c71",
+		"name": "Ajirayan",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/api/rover/configure",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n \t\"scenarios\": [{\n \t\t\t\"name\": \"battery-low\",\n \t\t\t\"conditions\": [{\n \t\t\t\t\"type\": \"rover\",\n \t\t\t\t\"property\": \"battery\",\n \t\t\t\t\"operator\": \"lte\",\n \t\t\t\t\"value\": 2\n \t\t\t}],\n \t\t\t\"rover\": [{\n \t\t\t\t\"is\": \"immobile\"\n \t\t\t}]\n \t\t},\n \t\t{\n \t\t\t\"name\": \"encountering-water\",\n \t\t\t\"conditions\": [{\n \t\t\t\t\"type\": \"environment\",\n \t\t\t\t\"property\": \"terrain\",\n \t\t\t\t\"operator\": \"eq\",\n \t\t\t\t\"value\": \"water\"\n \t\t\t}],\n \t\t\t\"rover\": [{\n \t\t\t\t\"performs\": {\n \t\t\t\t\t\"collect-sample\": {\n \t\t\t\t\t\t\"type\": \"water-sample\",\n \t\t\t\t\t\t\"qty\": 2\n \t\t\t\t\t}\n \t\t\t\t}\n\n \t\t\t}]\n \t\t},\n \t\t{\n \t\t\t\"name\": \"encountering-storm\",\n \t\t\t\"conditions\": [{\n \t\t\t\t\"type\": \"environment\",\n \t\t\t\t\"property\": \"storm\",\n \t\t\t\t\"operator\": \"eq\",\n \t\t\t\t\"value\": true\n \t\t\t}],\n \t\t\t\"rover\": [{\n \t\t\t\t\"performs\": {\n \t\t\t\t\t\"item-usage\": {\n \t\t\t\t\t\t\"type\": \"storm-shield\",\n \t\t\t\t\t\t\"qty\": 1\n \t\t\t\t\t}\n \t\t\t\t}\n \t\t\t}]\n \t\t}\n \t],\n \t\"states\": [{\n \t\t\t\"name\": \"normal\",\n \t\t\t\"allowedActions\": [\n \t\t\t\t\"move\",\n \t\t\t\t\"collect-sample\"\n \t\t\t]\n \t\t},\n \t\t{\n \t\t\t\"name\": \"immobile\",\n \t\t\t\"allowedActions\": [\n \t\t\t\t\"collect-sample\"\n \t\t\t]\n \t\t}\n \t],\n \t\"deploy-point\": {\n \t\t\"row\": 3,\n \t\t\"column\": 1\n \t},\n \t\"initial-battery\": 11,\n \t\"inventory\": [{\n \t\t\"type\": \"storm-shield\",\n \t\t\"quantity\": 1,\n \t\t\"priority\": 1\n \t}]\n }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/rover/configure",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"rover",
+						"configure"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/environment/configure",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n    \"temperature\": 60,\n    \"humidity\": 100,\n    \"solar-flare\": false,\n    \"storm\": true,\n    \"area-map\": [\n    [ \"dirt\", \"dirt\", \"dirt\", \"water\", \"dirt\" ],\n    [ \"dirt\", \"dirt\", \"water\", \"water\", \"water\" ],\n    [ \"dirt\", \"dirt\", \"dirt\", \"water\", \"dirt\" ],\n    [ \"dirt\", \"dirt\", \"dirt\", \"dirt\", \"dirt\" ],\n    [ \"dirt\", \"dirt\", \"dirt\", \"dirt\", \"dirt\" ]\n   ] \n }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/environment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"environment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/rover/status",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"direction\": \"down\"\n }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/rover/status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"rover",
+						"status"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
